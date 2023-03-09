@@ -1,4 +1,5 @@
 ﻿@page "/counter"
+@inject ILoggerFactory LoggerFactory
 
 <PageTitle>Counter</PageTitle>
 
@@ -9,11 +10,28 @@
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
-    private int currentCount = 0;
+    private int currentCount = -2;
+    private ILogger? logger;
+    private int Zero;
+
+    protected override void OnInitialized()
+    {
+        logger = LoggerFactory.CreateLogger("MY VERY OWN CATEGORY");
+    }
 
     private void IncrementCount()
     {
         currentCount++;
+        logger.LogInformation($"Counter incremented: {currentCount}");
+        try
+        {
+            var foo = currentCount /currentCount;
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Shit, this went South!");
+            throw e;
+        }
     }
 
 }

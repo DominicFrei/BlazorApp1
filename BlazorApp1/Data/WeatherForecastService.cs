@@ -9,6 +9,7 @@ public class WeatherForecastService
 
     public Task<WeatherForecast[]> GetForecastAsync(DateOnly startDate)
     {
+        throw new Exception("That didn't work too well, eh?");
         return Task.FromResult(Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = startDate.AddDays(index),
